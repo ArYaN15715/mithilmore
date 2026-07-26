@@ -7,14 +7,14 @@ import bathPlan from "../assets/projects/common-bath/floor-plan.png";
 import bathElev01 from "../assets/projects/common-bath/elevation-01.png";
 import bathElev02 from "../assets/projects/common-bath/elevation-02.png";
 
-// Family Kitchen
-import kitchen01 from "../assets/projects/family-kitchen/01.jpg";
-import kitchen02 from "../assets/projects/family-kitchen/02.jpg";
-import kitchen03 from "../assets/projects/family-kitchen/03.jpg";
-import kitchen04 from "../assets/projects/family-kitchen/04.jpg";
-import kitchenPlan from "../assets/projects/family-kitchen/floor-plan.png";
-import kitchenElev01 from "../assets/projects/family-kitchen/elevation-01.png";
-import kitchenElev02 from "../assets/projects/family-kitchen/elevation-02.png";
+// Kitchen
+import kitchen01 from "../assets/projects/kitchen/01.jpg";
+import kitchen02 from "../assets/projects/kitchen/02.jpg";
+import kitchen03 from "../assets/projects/kitchen/03.jpg";
+import kitchen04 from "../assets/projects/kitchen/04.jpg";
+import kitchenPlan from "../assets/projects/kitchen/floor-plan.png";
+import kitchenElev01 from "../assets/projects/kitchen/elevation-01.png";
+import kitchenElev02 from "../assets/projects/kitchen/elevation-02.png";
 
 // Master Suite
 import suite01 from "../assets/projects/master-suite/01.jpg";
@@ -27,6 +27,15 @@ import suitePlan from "../assets/projects/master-suite/floor-plan.png";
 import suiteElev01 from "../assets/projects/master-suite/elevation-01.png";
 import suiteElev02 from "../assets/projects/master-suite/elevation-02.png";
 import suiteWardrobe from "../assets/projects/master-suite/wardrobe.png";
+
+// Office Furniture
+import desk01 from "../assets/projects/office-furniture/desk-01.jpg";
+import desk02 from "../assets/projects/office-furniture/desk-02.jpg";
+import console01 from "../assets/projects/office-furniture/console-01.jpg";
+import console02 from "../assets/projects/office-furniture/console-02.jpg";
+import deskDrawing01 from "../assets/projects/office-furniture/desk-drawing-01.jpg";
+import deskDrawing02 from "../assets/projects/office-furniture/desk-drawing-02.jpg";
+import consoleDrawing01 from "../assets/projects/office-furniture/console-drawing-01.jpg";
 
 export type ProjectPhoto = {
   src: string;
@@ -107,8 +116,8 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "family-kitchen",
-    title: "The Family Kitchen",
+    slug: "kitchen",
+    title: "The Kitchen",
     typology: "Residential · Kitchen",
     location: "Vadodara, IN",
     year: "2025",
@@ -127,6 +136,29 @@ export const projects: Project[] = [
       { src: kitchenPlan, alt: "Kitchen floor plan", layout: "drawing" },
       { src: kitchenElev01, alt: "Kitchen elevation, working wall", layout: "drawing" },
       { src: kitchenElev02, alt: "Kitchen elevation, tall units", layout: "drawing" },
+    ],
+  },
+  {
+    slug: "office-furniture",
+    title: "Desk & Console",
+    typology: "Commercial · Furniture",
+    location: "Vadodara, IN",
+    year: "2025",
+    role: "Furniture design, working drawings, visualisation",
+    tools: ["AutoCAD", "SketchUp"],
+    intro:
+      "An executive desk and matching console designed for a commercial office, sharing one palette: grey stone, blackened steel and a block of oxblood red. The desk balances its marble top between splayed legs and a red pedestal; the console wraps white storage in the same red shell. Both pieces were drawn for production, not just for the render.",
+    story: [],
+    cover: desk01,
+    coverAlt: "Executive desk with marble top, black steel legs and oxblood pedestal",
+    photos: [
+      { src: desk01, alt: "Office desk, side view: marble top, fluted modesty panel, oxblood pedestal", layout: "full" },
+      { src: desk02, alt: "Office desk, angled view with drawer unit", layout: "half" },
+      { src: console02, alt: "Office console, angled view", layout: "half" },
+      { src: console01, alt: "Office console: white storage in an oxblood shell on splayed black legs", layout: "full" },
+      { src: deskDrawing01, alt: "Desk working drawing, sheet 01", layout: "drawing" },
+      { src: deskDrawing02, alt: "Desk working drawing, sheet 02", layout: "drawing" },
+      { src: consoleDrawing01, alt: "Console working drawing", layout: "drawing" },
     ],
   },
 ];

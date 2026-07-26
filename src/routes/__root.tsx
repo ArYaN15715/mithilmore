@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { SmoothScroll } from "@/components/motion/SmoothScroll";
 
 function NotFoundComponent() {
   return (
@@ -79,7 +80,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "author", content: "Mithil More" },
       { property: "og:type", content: "website" },
-      { property: "og:site_name", content: "Mithil More — Interior Architecture" },
+      { property: "og:site_name", content: "Mithil More — Interior Designer" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "theme-color", content: "#f2ede4" },
     ],
@@ -122,8 +123,10 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <SmoothScroll>
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <Outlet />
+      </SmoothScroll>
     </QueryClientProvider>
   );
 }

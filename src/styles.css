@@ -205,3 +205,19 @@
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0 0.06 0 0 0 1 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
 }
+
+/* Cross-route fade via the View Transitions API */
+@media not (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root) {
+    animation: 260ms ease-out both vt-fade-out;
+  }
+  ::view-transition-new(root) {
+    animation: 320ms ease-in both vt-fade-in;
+  }
+}
+@keyframes vt-fade-out {
+  to { opacity: 0; }
+}
+@keyframes vt-fade-in {
+  from { opacity: 0; }
+}

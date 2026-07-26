@@ -1,0 +1,99 @@
+import { site } from "@/data/site";
+import { Reveal } from "@/components/motion/Reveal";
+
+const toolNotes: Record<string, string> = {
+  AutoCAD: "Drafting",
+  SketchUp: "Modelling",
+  "V-Ray": "Rendering",
+  Lumion: "Rendering",
+  Enscape: "Rendering",
+  "Adobe Photoshop": "Imaging",
+  "Adobe Illustrator": "Graphics",
+  CorelDRAW: "Graphics",
+};
+
+export function BackgroundSection() {
+  return (
+    <section id="background" className="border-b border-border px-6 py-28 md:px-10 md:py-40">
+      <div className="mx-auto max-w-[1600px]">
+        <div className="mb-16 flex items-end justify-between md:mb-24">
+          <span className="label text-foreground/50">Ch. 02 — Practice</span>
+          <span className="label text-foreground/40">Experience · Education · Tools</span>
+        </div>
+
+        <div className="grid grid-cols-12 gap-x-8">
+          <div className="col-span-12 md:col-span-4">
+            <h2 className="font-display text-[clamp(2rem,4.5vw,4.4rem)] leading-[1.02] tracking-[-0.015em] text-balance">
+              The work behind <em className="italic text-bronze">the work</em>.
+            </h2>
+            <p className="mt-8 max-w-sm text-base leading-relaxed text-foreground/70">
+              Studio years, study years, and the instruments a project passes
+              through on its way from plan to site.
+            </p>
+          </div>
+
+          {/* Experience rows */}
+          <div className="col-span-12 mt-12 md:col-span-7 md:col-start-6 md:mt-0">
+            <div className="label mb-2 text-foreground/40">Experience</div>
+            <ol>
+              {site.experience.map((e, i) => (
+                <Reveal key={i} as="li" delay={i * 60}>
+                  <div className="group grid grid-cols-12 gap-4 border-t border-border py-8 md:py-10" data-cursor={e.role}>
+                    <span className="col-span-12 label text-foreground/50 md:col-span-3">{e.period}</span>
+                    <h3 className="col-span-12 font-display text-2xl md:col-span-5 md:text-3xl leading-tight transition-transform duration-500 group-hover:translate-x-2">
+                      {e.company}
+                    </h3>
+                    <p className="col-span-12 text-sm leading-relaxed text-foreground/60 md:col-span-4">
+                      {e.summary}
+                    </p>
+                  </div>
+                </Reveal>
+              ))}
+            </ol>
+
+            {/* Education */}
+            <div className="label mb-2 mt-16 text-foreground/40">Education</div>
+            <ol>
+              {site.education.map((ed, i) => (
+                <Reveal key={i} as="li" delay={i * 60}>
+                  <div className="grid grid-cols-12 gap-4 border-t border-border py-8 md:py-10">
+                    <span className="col-span-12 label text-foreground/50 md:col-span-3">{ed.period}</span>
+                    <div className="col-span-12 md:col-span-5">
+                      <h3 className="font-display text-2xl md:text-3xl leading-tight">{ed.degree}</h3>
+                      <p className="label mt-2 text-foreground/50">{ed.field}</p>
+                    </div>
+                    <p className="col-span-12 text-sm leading-relaxed text-foreground/60 md:col-span-4">
+                      {ed.school}
+                    </p>
+                  </div>
+                </Reveal>
+              ))}
+            </ol>
+          </div>
+        </div>
+
+        {/* Software */}
+        <div className="mt-24 md:mt-32">
+          <div className="mb-2 flex items-end justify-between">
+            <span className="label text-foreground/40">Software</span>
+            <span className="label hidden text-foreground/40 md:block">Plan · Model · Render · Present</span>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4">
+            {site.tools.map((t, i) => (
+              <Reveal key={t} delay={i * 40}>
+                <div className="flex items-baseline justify-between border-t border-border py-6 pr-6 md:py-8">
+                  <span className="font-display text-xl md:text-2xl">{t}</span>
+                  <span className="label text-foreground/40">{toolNotes[t]}</span>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+          <div className="mt-12 flex flex-wrap items-baseline justify-between gap-4 border-t border-border pt-6">
+            <span className="label text-foreground/40">Languages</span>
+            <span className="label text-foreground/60">{site.languages.join(" · ")}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

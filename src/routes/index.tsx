@@ -80,15 +80,6 @@ const process = [
   { n: "06", t: "Delivery", d: "Handover as ritual — the space received with its story already inside it." },
 ];
 
-const recognitions = [
-  ["AD100", "Featured, 2024"],
-  ["Wallpaper*", "Design Awards, Shortlist"],
-  ["ELLE Decor", "Interior of the Year"],
-  ["Dezeen", "Longlist, Residence"],
-  ["Frame", "Editor's Pick"],
-  ["Domus", "Notes on Practice"],
-];
-
 function Home() {
   const yRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -285,7 +276,7 @@ function Home() {
           </Reveal>
           <div className="mt-16 grid grid-cols-12 gap-8">
             <div className="col-span-12 md:col-span-4 md:col-start-9 label text-foreground/60">
-              — Note 004, Studio Journal
+              — {site.name}
             </div>
           </div>
         </div>
@@ -301,7 +292,7 @@ function Home() {
                 A vocabulary of <em className="italic text-bronze">four</em>.
               </h2>
             </div>
-            <span className="hidden label text-foreground/40 md:block">Curated · 2025 season</span>
+            <span className="hidden label text-foreground/40 md:block">A working vocabulary</span>
           </div>
 
           <div className="grid grid-cols-2 gap-x-4 gap-y-16 md:grid-cols-4 md:gap-x-8">
@@ -375,11 +366,11 @@ function Home() {
         </div>
         <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-8 md:gap-10 md:px-10" data-cursor="Drag">
           {[
-            { img: project4, cap: "Interior — Stairwell", pl: "Kyoto" },
-            { img: project2, cap: "Interior — Bedroom", pl: "Bandra" },
-            { img: project3, cap: "Detail — Stone Wash", pl: "Alibaug" },
-            { img: project1, cap: "Interior — Refectory", pl: "Colaba" },
-            { img: heroImg, cap: "Interior — Reading", pl: "Alibaug" },
+            { img: project4, cap: "Study — Stairwell", pl: "01" },
+            { img: project2, cap: "Study — Bedroom", pl: "02" },
+            { img: project3, cap: "Study — Stone", pl: "03" },
+            { img: project1, cap: "Study — Dining", pl: "04" },
+            { img: heroImg, cap: "Study — Light", pl: "05" },
           ].map((g, i) => (
             <div key={i} className="snap-start shrink-0 w-[78vw] md:w-[42vw] lg:w-[32vw]">
               <div className="aspect-[4/5] overflow-hidden">
@@ -394,51 +385,12 @@ function Home() {
         </div>
       </section>
 
-      {/* TESTIMONIAL */}
-      <section className="border-b border-border bg-bone px-6 py-28 md:px-10 md:py-48">
-        <div className="mx-auto grid max-w-[1400px] grid-cols-12 gap-y-16 gap-x-8">
-          <div className="col-span-12 md:col-span-3">
-            <span className="label text-foreground/50">Ch. 07 — Words</span>
-          </div>
-          <Reveal className="col-span-12 md:col-span-9">
-            <blockquote className="font-display text-[clamp(1.8rem,3.6vw,3.4rem)] leading-[1.1] tracking-[-0.01em] text-balance">
-              “We asked for a house. He gave us a way of living in one.
-              Two years later, the rooms still <em className="italic text-bronze">surprise us</em> with light we had not noticed before.”
-            </blockquote>
-            <div className="mt-10 flex items-center gap-4 label text-foreground/60">
-              <span className="h-px w-16 bg-foreground/30" />
-              <span>Anaya & Rohan Sethi — House of Quiet Light, 2024</span>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* RECOGNITION */}
-      <section className="border-b border-border px-6 py-24 md:px-10 md:py-32">
-        <div className="mx-auto max-w-[1600px]">
-          <div className="mb-16 flex items-end justify-between">
-            <span className="label text-foreground/50">Ch. 08 — Recognition</span>
-            <span className="label text-foreground/40">Press · Awards · Exhibitions</span>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3">
-            {recognitions.map(([name, note], i) => (
-              <Reveal key={name} delay={i * 40}>
-                <div className="flex items-baseline justify-between border-t border-border py-8">
-                  <span className="font-display text-2xl md:text-3xl">{name}</span>
-                  <span className="label text-foreground/50 text-right">{note}</span>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CONTACT */}
       <section id="contact" className="relative overflow-hidden bg-ink px-6 py-28 text-[color:oklch(0.97_0.008_85)] md:px-10 md:py-48">
         <div className="mx-auto max-w-[1600px]">
           <div className="flex items-end justify-between label opacity-60 mb-16">
             <span>Ch. 08 — Correspondence</span>
-            <span>MMXXV</span>
+            <span>MMXXVI</span>
           </div>
 
           <Reveal>
@@ -451,39 +403,71 @@ function Home() {
           <div className="mt-20 grid grid-cols-12 gap-8">
             <div className="col-span-12 md:col-span-5">
               <a
-                href="mailto:studio@mithilmore.com"
+                href={`mailto:${site.email}`}
                 data-cursor="Write"
                 className="group inline-flex items-baseline gap-4 font-display text-2xl md:text-4xl border-b border-white/20 pb-3 hover:border-white/60 transition-colors"
               >
-                <span>studio@mithilmore.com</span>
+                <span>{site.email}</span>
                 <span className="transition-transform duration-500 group-hover:translate-x-2">→</span>
               </a>
               <p className="mt-10 max-w-md text-sm leading-relaxed opacity-70">
-                The studio accepts a limited number of commissions each year. Residences, hospitality and long-form
-                collaborations with makers.
+                {site.availability} — in Vadodara and beyond. Write a line about
+                your space, and I will reply with a time to talk.
               </p>
+              <div className="mt-8 flex flex-wrap items-center gap-8 label">
+                <a
+                  href={site.whatsapp}
+                  target="_blank"
+                  rel="noreferrer"
+                  data-cursor="Chat"
+                  className="inline-flex items-center gap-3 opacity-80 transition-opacity hover:opacity-100"
+                >
+                  <span className="inline-block h-px w-8 bg-current" />
+                  <span>WhatsApp</span>
+                </a>
+                <a
+                  href={`tel:${site.phoneRaw}`}
+                  data-cursor="Call"
+                  className="inline-flex items-center gap-3 opacity-80 transition-opacity hover:opacity-100"
+                >
+                  <span className="inline-block h-px w-8 bg-current" />
+                  <span>{site.phoneDisplay}</span>
+                </a>
+              </div>
             </div>
 
             <div className="col-span-12 md:col-span-3 md:col-start-8 label opacity-70">
-              <div className="mb-3 opacity-50">Studio</div>
-              <div>Ground Floor</div>
-              <div>Colaba Causeway</div>
-              <div>Mumbai 400005 · IN</div>
+              <div className="mb-3 opacity-50">Location</div>
+              <div>Vadodara, Gujarat</div>
+              <div>India</div>
               <div className="mt-6 opacity-50">Hours</div>
-              <div>Tue — Fri</div>
               <div>By appointment</div>
             </div>
 
             <div className="col-span-12 md:col-span-2 label opacity-70">
-              <div className="mb-3 opacity-50">Follow</div>
-              <div>Instagram</div>
-              <div>Are.na</div>
-              <div>Journal</div>
+              <div className="mb-3 opacity-50">Languages</div>
+              {site.languages.map((l) => (
+                <div key={l}>{l}</div>
+              ))}
+              {site.instagram && (
+                <>
+                  <div className="mb-3 mt-6 opacity-50">Follow</div>
+                  <a
+                    href={site.instagram}
+                    target="_blank"
+                    rel="noreferrer"
+                    data-cursor="Follow"
+                    className="transition-opacity hover:opacity-100"
+                  >
+                    Instagram
+                  </a>
+                </>
+              )}
             </div>
           </div>
 
           <div className="mt-24 flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-8 label opacity-50 md:flex-row md:items-center">
-            <span>© MMXXV — Mithil More Studio</span>
+            <span>© MMXXVI — {site.name}</span>
             <span>Rooms that remember the light.</span>
           </div>
         </div>

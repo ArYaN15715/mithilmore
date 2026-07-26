@@ -221,3 +221,17 @@
 @keyframes vt-fade-in {
   from { opacity: 0; }
 }
+
+/* Hero image drift, scroll-driven (no JS scroll listeners). Falls back to static. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-parallax {
+      animation: hero-parallax-drift linear both;
+      animation-timeline: view();
+    }
+  }
+}
+@keyframes hero-parallax-drift {
+  from { transform: translateY(-12%); }
+  to { transform: translateY(0); }
+}

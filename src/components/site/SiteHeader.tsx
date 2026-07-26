@@ -1,11 +1,9 @@
 import { Link } from "@tanstack/react-router";
 
 const links = [
-  ["Work", "/#work"],
   ["Studio", "/#studio"],
-  ["Background", "/#background"],
-  ["Materials", "/#materials"],
-  ["Process", "/#process"],
+  ["Practice", "/#background"],
+  ["Work", "/#work"],
 ] as const;
 
 export function SiteHeader() {

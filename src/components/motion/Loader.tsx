@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 export function Loader() {
   const [gone, setGone] = useState(false);
   useEffect(() => {
-    const t = setTimeout(() => setGone(true), 1800);
+    const t = setTimeout(() => setGone(true), 1100);
     return () => clearTimeout(t);
   }, []);
   return (

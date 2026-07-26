@@ -1,16 +1,29 @@
 import { site } from "@/data/site";
 import { Reveal } from "@/components/motion/Reveal";
 
-const toolNotes: Record<string, string> = {
-  AutoCAD: "Drafting",
-  SketchUp: "Modelling",
-  "V-Ray": "Rendering",
-  Lumion: "Rendering",
-  Enscape: "Rendering",
-  "Adobe Photoshop": "Imaging",
-  "Adobe Illustrator": "Graphics",
-  CorelDRAW: "Graphics",
+/**
+ * App-tile marks for each tool, in the vein of Adobe's own two-letter product
+ * glyphs. Colors are brand-adjacent so the marks read instantly; the small
+ * rounded tile is the one deliberate radius exception on an otherwise sharp
+ * page (it is the "app icon" metaphor).
+ */
+const toolMarks: Record<string, { mark: string; note: string; fg: string; bg: string }> = {
+  AutoCAD: { mark: "Ac", note: "Drafting", fg: "#FFFFFF", bg: "#B02A30" },
+  SketchUp: { mark: "Su", note: "Modelling", fg: "#FFFFFF", bg: "#D4402F" },
+  "V-Ray": { mark: "Vr", note: "Rendering", fg: "#FFFFFF", bg: "#0A7DBE" },
+  Lumion: { mark: "Lu", note: "Rendering", fg: "#FFFFFF", bg: "#0E7490" },
+  Enscape: { mark: "En", note: "Rendering", fg: "#FFFFFF", bg: "#F26E21" },
+  "Adobe Photoshop": { mark: "Ps", note: "Imaging", fg: "#31A8FF", bg: "#001E36" },
+  "Adobe Illustrator": { mark: "Ai", note: "Graphics", fg: "#FF9A00", bg: "#330000" },
+  CorelDRAW: { mark: "Cd", note: "Graphics", fg: "#FFFFFF", bg: "#009344" },
 };
+
+const languages = [
+  { native: "मराठी", name: "Marathi" },
+  { native: "ગુજરાતી", name: "Gujarati" },
+  { native: "हिन्दी", name: "Hindi" },
+  { native: "English", name: "English" },
+];
 
 export function BackgroundSection() {
   return (
@@ -18,7 +31,7 @@ export function BackgroundSection() {
       <div className="mx-auto max-w-[1600px]">
         <div className="mb-16 flex items-end justify-between md:mb-24">
           <span className="label text-foreground/50">Ch. 02 — Practice</span>
-          <span className="label text-foreground/40">Experience · Education · Tools</span>
+          <span className="label text-foreground/40">Experience & Education</span>
         </div>
 
         <div className="grid grid-cols-12 gap-x-8">
@@ -74,23 +87,43 @@ export function BackgroundSection() {
 
         {/* Software */}
         <div className="mt-24 md:mt-32">
-          <div className="mb-2 flex items-end justify-between">
-            <span className="label text-foreground/40">Software</span>
-            <span className="label hidden text-foreground/40 md:block">Plan · Model · Render · Present</span>
+          <div className="label mb-2 text-foreground/40">Software</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
+            {site.tools.map((t, i) => {
+              const m = toolMarks[t];
+              return (
+                <Reveal key={t} delay={i * 40}>
+                  <div className="flex items-center gap-4 border-t border-border py-6 pr-6 md:py-7">
+                    <span
+                      aria-hidden
+                      className="grid size-10 shrink-0 place-items-center rounded-md text-[13px] font-semibold tracking-tight"
+                      style={{ background: m.bg, color: m.fg }}
+                    >
+                      {m.mark}
+                    </span>
+                    <span className="flex-1 font-display text-xl md:text-2xl">
+                      {t.replace("Adobe ", "")}
+                    </span>
+                    <span className="label hidden text-foreground/40 sm:block">{m.note}</span>
+                  </div>
+                </Reveal>
+              );
+            })}
           </div>
+        </div>
+
+        {/* Languages */}
+        <div className="mt-16 md:mt-20">
+          <div className="label mb-2 text-foreground/40">Languages</div>
           <div className="grid grid-cols-2 md:grid-cols-4">
-            {site.tools.map((t, i) => (
-              <Reveal key={t} delay={i * 40}>
-                <div className="flex items-baseline justify-between border-t border-border py-6 pr-6 md:py-8">
-                  <span className="font-display text-xl md:text-2xl">{t}</span>
-                  <span className="label text-foreground/40">{toolNotes[t]}</span>
+            {languages.map((l, i) => (
+              <Reveal key={l.name} delay={i * 40}>
+                <div className="border-t border-border py-6 pr-6 md:py-8">
+                  <div className="font-display text-3xl md:text-4xl">{l.native}</div>
+                  <div className="label mt-2 text-foreground/50">{l.name}</div>
                 </div>
               </Reveal>
             ))}
-          </div>
-          <div className="mt-12 flex flex-wrap items-baseline justify-between gap-4 border-t border-border pt-6">
-            <span className="label text-foreground/40">Languages</span>
-            <span className="label text-foreground/60">{site.languages.join(" · ")}</span>
           </div>
         </div>
       </div>

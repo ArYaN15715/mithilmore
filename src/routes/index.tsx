@@ -1,5 +1,4 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef } from "react";
 
 import { Reveal } from "@/components/motion/Reveal";
 import { Cursor } from "@/components/motion/Cursor";
@@ -11,14 +10,6 @@ import { site } from "@/data/site";
 import { projects } from "@/data/projects";
 
 import heroImg from "../assets/hero.jpg";
-import project1 from "../assets/project-1.jpg";
-import project2 from "../assets/project-2.jpg";
-import project3 from "../assets/project-3.jpg";
-import project4 from "../assets/project-4.jpg";
-import matStone from "../assets/mat-stone.jpg";
-import matWood from "../assets/mat-wood.jpg";
-import matBronze from "../assets/mat-bronze.jpg";
-import matLinen from "../assets/mat-linen.jpg";
 import portrait from "../assets/portrait.jpg";
 
 export const Route = createFileRoute("/")({
@@ -74,34 +65,7 @@ const workLayout = [
   { span: "lg:col-span-7", tall: true },
 ];
 
-const materials = [
-  { name: "Travertine", origin: "Tivoli, IT", img: matStone },
-  { name: "Oiled Oak", origin: "Slavonia, HR", img: matWood },
-  { name: "Patinated Bronze", origin: "Milano, IT", img: matBronze },
-  { name: "Belgian Linen", origin: "Kortrijk, BE", img: matLinen },
-];
-
-const process = [
-  { n: "01", t: "Discover", d: "Listening to the site, the client, and the silences between the two." },
-  { n: "02", t: "Concept", d: "A single line of intent from which every subsequent decision will follow." },
-  { n: "03", t: "Planning", d: "Architectural drawings, spatial choreography, functional geometry." },
-  { n: "04", t: "Visualisation", d: "Light studies, material stacks and full room dioramas in service of feeling." },
-  { n: "05", t: "Execution", d: "Craftsmanship supervised down to the millimetre, on site, in person." },
-  { n: "06", t: "Delivery", d: "Handover as ritual — the space received with its story already inside it." },
-];
-
 function Home() {
-  const yRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const onScroll = () => {
-      if (!yRef.current) return;
-      const y = window.scrollY;
-      yRef.current.style.transform = `translate3d(0, ${y * 0.18}px, 0) scale(${1 + y * 0.00012})`;
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
     <div className="grain relative min-h-screen bg-background text-foreground">
       <Loader />
@@ -111,50 +75,36 @@ function Home() {
       <SiteHeader />
 
       {/* HERO */}
-      <section id="top" className="relative h-[100svh] w-full overflow-hidden">
-        <div ref={yRef} className="absolute inset-0 -z-10 will-change-transform">
+      <section id="top" className="relative flex min-h-[100dvh] flex-col overflow-hidden border-b border-border">
+        <div className="mx-auto w-full max-w-[1600px] shrink-0 px-6 pt-24 md:px-10 md:pt-28">
+          <p className="label text-foreground/55 rise" style={{ animationDelay: "1.15s" }}>
+            {site.title}, Vadodara
+          </p>
+          <h1 className="mt-4 font-display leading-[0.9] tracking-[-0.02em] text-[clamp(3.8rem,12vw,11rem)]">
+            <span className="block rise" style={{ animationDelay: "1.25s" }}>Mithil</span>
+            <span className="block rise pl-[0.55em]" style={{ animationDelay: "1.4s" }}>
+              <em className="italic text-bronze">More</em>
+            </span>
+          </h1>
+          <div className="mt-8 flex flex-wrap items-end justify-between gap-6 pb-10 rise" style={{ animationDelay: "1.55s" }}>
+            <p className="max-w-md text-base font-light leading-relaxed text-foreground/70 md:text-lg">
+              Space planning, design development and site execution for residential and commercial interiors.
+            </p>
+            <a href="#work" data-cursor="View" className="group inline-flex items-center gap-4 label">
+              <span className="inline-block h-px w-16 bg-current transition-all duration-500 group-hover:w-24" />
+              <span>Selected&nbsp;Work</span>
+            </a>
+          </div>
+        </div>
+        <div className="relative min-h-[220px] flex-1 overflow-hidden">
           <img
             src={heroImg}
-            alt="Sunlit travertine living room with low oak furniture"
+            alt="Sunlit living space with warm stone and oak furniture"
             width={1920}
             height={1280}
-            className="h-[115%] w-full object-cover softin"
+            fetchPriority="high"
+            className="hero-parallax absolute inset-0 h-[118%] w-full object-cover softin"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-ink/40 via-ink/10 to-background" />
-        </div>
-
-        <div className="relative z-10 flex h-full flex-col justify-between px-6 pb-10 pt-28 md:px-10 md:pb-14 md:pt-32 text-[color:oklch(0.97_0.008_85)]">
-          <div className="flex items-start justify-between label opacity-80">
-            <span>{site.title}</span>
-            <span className="hidden md:inline">{site.coordinates}</span>
-            <span>{site.locationShort}</span>
-          </div>
-
-          <div className="max-w-[1400px]">
-            <p className="label mb-6 opacity-80 rise" style={{ animationDelay: "1.9s" }}>
-              — {site.name}, {site.title}
-            </p>
-            <h1
-              className="font-display text-[clamp(3.2rem,12vw,12rem)] leading-[0.86] tracking-[-0.02em] text-balance rise"
-              style={{ animationDelay: "2.1s" }}
-            >
-              Rooms that <em className="italic opacity-95">remember</em>
-              <br />the light.
-            </h1>
-            <div className="mt-10 flex flex-wrap items-end justify-between gap-6 rise" style={{ animationDelay: "2.35s" }}>
-              <p className="max-w-md font-light leading-relaxed opacity-85">
-                Interiors composed with intention. A quiet devotion to material, proportion and the way a space holds a life.
-              </p>
-              <a
-                href="#work"
-                data-cursor="Scroll"
-                className="group inline-flex items-center gap-4 label"
-              >
-                <span className="inline-block h-px w-16 bg-current transition-all duration-500 group-hover:w-24" />
-                <span>Selected&nbsp;Work ↓</span>
-              </a>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -205,10 +155,6 @@ function Home() {
                 developing designs and coordinating them on site, from working
                 drawings to handover.
               </p>
-              <a href="#contact" data-cursor="Write" className="inline-flex items-center gap-3 label pt-4">
-                <span>Start a project</span>
-                <span className="inline-block h-px w-10 bg-current" />
-              </a>
             </Reveal>
           </div>
         </div>
@@ -270,136 +216,11 @@ function Home() {
         </div>
       </section>
 
-      {/* PHILOSOPHY — Big pull quote */}
-      <section className="relative border-b border-border bg-bone px-6 py-32 md:px-10 md:py-56">
-        <div className="mx-auto max-w-[1400px]">
-          <div className="mb-16 flex items-center justify-between label text-foreground/50">
-            <span>Ch. 04 — Philosophy</span>
-            <span>On restraint</span>
-          </div>
-          <Reveal>
-            <p className="font-display text-[clamp(2.4rem,6vw,6.4rem)] leading-[0.98] tracking-[-0.02em] text-balance">
-              Luxury is not an ornament. It is the presence of
-              <em className="italic text-bronze"> intention</em> in every millimetre,
-              and the confidence to leave the rest alone.
-            </p>
-          </Reveal>
-          <div className="mt-16 grid grid-cols-12 gap-8">
-            <div className="col-span-12 md:col-span-4 md:col-start-9 label text-foreground/60">
-              — {site.name}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* MATERIALS */}
-      <section id="materials" className="border-b border-border px-6 py-28 md:px-10 md:py-40">
-        <div className="mx-auto max-w-[1600px]">
-          <div className="mb-16 flex items-end justify-between md:mb-24">
-            <div>
-              <span className="label text-foreground/50">Ch. 05 — Material Library</span>
-              <h2 className="mt-6 font-display text-[clamp(2.4rem,6vw,5.6rem)] leading-[0.98] tracking-[-0.02em]">
-                A vocabulary of <em className="italic text-bronze">four</em>.
-              </h2>
-            </div>
-            <span className="hidden label text-foreground/40 md:block">A working vocabulary</span>
-          </div>
-
-          <div className="grid grid-cols-2 gap-x-4 gap-y-16 md:grid-cols-4 md:gap-x-8">
-            {materials.map((m, i) => (
-              <Reveal key={m.name} delay={i * 80}>
-                <div className="group cursor-pointer" data-cursor="Feel">
-                  <div className="aspect-[4/5] overflow-hidden">
-                    <img
-                      src={m.img}
-                      alt={m.name}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-[1600ms] ease-out group-hover:scale-[1.06]"
-                    />
-                  </div>
-                  <div className="mt-4 flex items-baseline justify-between">
-                    <div>
-                      <div className="label text-foreground/40">0{i + 1}</div>
-                      <div className="mt-2 font-display text-2xl md:text-3xl">{m.name}</div>
-                    </div>
-                    <span className="label text-foreground/50">{m.origin}</span>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* PROCESS */}
-      <section id="process" className="border-b border-border bg-ink px-6 py-28 text-[color:oklch(0.96_0.01_85)] md:px-10 md:py-48">
-        <div className="mx-auto max-w-[1600px]">
-          <div className="mb-16 flex items-end justify-between md:mb-24">
-            <span className="label opacity-60">Ch. 06 — Method</span>
-            <span className="label opacity-40">Six movements</span>
-          </div>
-
-          <div className="grid grid-cols-12 gap-x-8">
-            <div className="col-span-12 md:col-span-4">
-              <h2 className="font-display text-[clamp(2.4rem,5vw,4.8rem)] leading-[1] tracking-[-0.02em] text-balance">
-                From <em className="italic text-bronze">intuition</em> to inhabited space.
-              </h2>
-              <p className="mt-8 max-w-sm text-base leading-relaxed opacity-70">
-                Every commission proceeds through the same six movements. Not a checklist — a rhythm.
-              </p>
-            </div>
-
-            <ol className="col-span-12 mt-12 md:col-span-7 md:col-start-6 md:mt-0">
-              {process.map((s, i) => (
-                <Reveal key={s.n} delay={i * 40}>
-                  <li className="group grid grid-cols-12 gap-4 border-t border-white/10 py-8 md:py-10">
-                    <span className="col-span-2 label opacity-50">{s.n}</span>
-                    <h3 className="col-span-10 md:col-span-4 font-display text-3xl md:text-5xl italic transition-transform duration-500 group-hover:translate-x-2">
-                      {s.t}
-                    </h3>
-                    <p className="col-span-12 md:col-span-6 text-sm leading-relaxed opacity-70">
-                      {s.d}
-                    </p>
-                  </li>
-                </Reveal>
-              ))}
-            </ol>
-          </div>
-        </div>
-      </section>
-
-      {/* HORIZONTAL GALLERY */}
-      <section className="border-b border-border py-28 md:py-40">
-        <div className="mx-auto mb-12 flex max-w-[1600px] items-end justify-between px-6 md:mb-16 md:px-10">
-          <span className="label text-foreground/50">Ch. 07 — Details</span>
-          <span className="label text-foreground/40 italic font-display text-base">drag to traverse →</span>
-        </div>
-        <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-8 md:gap-10 md:px-10" data-cursor="Drag">
-          {[
-            { img: project4, cap: "Study — Stairwell", pl: "01" },
-            { img: project2, cap: "Study — Bedroom", pl: "02" },
-            { img: project3, cap: "Study — Stone", pl: "03" },
-            { img: project1, cap: "Study — Dining", pl: "04" },
-            { img: heroImg, cap: "Study — Light", pl: "05" },
-          ].map((g, i) => (
-            <div key={i} className="snap-start shrink-0 w-[78vw] md:w-[42vw] lg:w-[32vw]">
-              <div className="aspect-[4/5] overflow-hidden">
-                <img src={g.img} alt={g.cap} loading="lazy" className="h-full w-full object-cover" />
-              </div>
-              <div className="mt-4 flex items-baseline justify-between label text-foreground/60">
-                <span>{g.cap}</span>
-                <span>{g.pl}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* CONTACT */}
       <section id="contact" className="relative overflow-hidden bg-ink px-6 py-28 text-[color:oklch(0.97_0.008_85)] md:px-10 md:py-48">
         <div className="mx-auto max-w-[1600px]">
           <div className="flex items-end justify-between label opacity-60 mb-16">
-            <span>Ch. 08 — Correspondence</span>
+            <span>Ch. 04 — Correspondence</span>
             <span>MMXXVI</span>
           </div>
 

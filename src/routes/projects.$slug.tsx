@@ -26,6 +26,16 @@ export const Route = createFileRoute("/projects/$slug")({
 });
 
 function Photo({ photo, index }: { photo: ProjectPhoto; index: number }) {
+  if (photo.layout === "drawing") {
+    return (
+      <Reveal className="col-span-12 md:col-span-6" delay={(index % 2) * 80}>
+        <div className="flex aspect-[4/3] items-center justify-center border border-border bg-bone p-6 md:p-10">
+          <img src={photo.src} alt={photo.alt} loading="lazy" className="max-h-full max-w-full object-contain" />
+        </div>
+        <p className="label mt-3 text-foreground/45">{photo.alt}</p>
+      </Reveal>
+    );
+  }
   if (photo.layout === "half") {
     return (
       <Reveal className="col-span-12 md:col-span-6" delay={(index % 2) * 80}>

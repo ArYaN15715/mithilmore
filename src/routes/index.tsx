@@ -135,7 +135,7 @@ function Home() {
         <div className="relative min-h-[220px] flex-1 overflow-hidden">
           <img
             src={heroImg}
-            alt="Sunlit living space with warm stone and oak furniture"
+            alt="Master bedroom at dusk with book-matched marble wall, designed by Mithil More"
             width={1920}
             height={1280}
             fetchPriority="high"
@@ -310,7 +310,7 @@ function Home() {
               <div className="mt-6 opacity-50">A note</div>
               <p className="mt-2 max-w-[26ch] font-display text-lg italic normal-case leading-snug tracking-normal opacity-90">
                 Every space begins with a conversation.
-                Looking forward to ours.
+                Looking forward to Connecting with you.
               </p>
             </div>
 

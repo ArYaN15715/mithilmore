@@ -40,8 +40,8 @@ export function BackgroundSection() {
               The work behind <em className="italic text-bronze">the work</em>.
             </h2>
             <p className="mt-8 max-w-sm text-base leading-relaxed text-foreground/70">
-              Studio years, study years, and the instruments a project passes
-              through on its way from plan to site.
+              The journey from concept to construction, shaped by years of
+              study, studio practice, and on-site execution.
             </p>
           </div>
 

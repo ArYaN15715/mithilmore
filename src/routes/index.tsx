@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 
 import { Reveal } from "@/components/motion/Reveal";
@@ -8,6 +8,7 @@ import { Marquee } from "@/components/motion/Marquee";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { BackgroundSection } from "@/components/sections/Background";
 import { site } from "@/data/site";
+import { projects } from "@/data/projects";
 
 import heroImg from "../assets/hero.jpg";
 import project1 from "../assets/project-1.jpg";
@@ -55,47 +56,12 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const projects = [
-  {
-    n: "01",
-    title: "House of Quiet Light",
-    place: "Alibaug, IN",
-    year: "2024",
-    type: "Private Residence",
-    img: heroImg,
-    span: "lg:col-span-8",
-    tall: false,
-  },
-  {
-    n: "02",
-    title: "Refectory No. 4",
-    place: "Mumbai, IN",
-    year: "2024",
-    type: "Dining / Hospitality",
-    img: project1,
-    span: "lg:col-span-4",
-    tall: true,
-  },
-  {
-    n: "03",
-    title: "Linen & Ash",
-    place: "Bandra, IN",
-    year: "2023",
-    type: "Apartment",
-    img: project2,
-    span: "lg:col-span-5",
-    tall: false,
-  },
-  {
-    n: "04",
-    title: "The Stone Bath",
-    place: "Kyoto, JP",
-    year: "2023",
-    type: "Guesthouse",
-    img: project3,
-    span: "lg:col-span-7",
-    tall: true,
-  },
+/** Editorial rhythm for the work grid — wide/narrow alternation, repeats past 4 items. */
+const workLayout = [
+  { span: "lg:col-span-8", tall: false },
+  { span: "lg:col-span-4", tall: true },
+  { span: "lg:col-span-5", tall: false },
+  { span: "lg:col-span-7", tall: true },
 ];
 
 const materials = [
@@ -255,42 +221,50 @@ function Home() {
         <div className="mx-auto max-w-[1600px]">
           <div className="mb-16 flex items-end justify-between md:mb-24">
             <span className="label text-foreground/50">Ch. 03 — Selected Works</span>
-            <span className="label text-foreground/40">Index / 04</span>
+            <span className="label text-foreground/40">Index / {String(projects.length).padStart(2, "0")}</span>
           </div>
 
           <div className="grid grid-cols-12 gap-x-8 gap-y-28 md:gap-y-40">
-            {projects.map((p, i) => (
-              <Reveal
-                key={p.n}
-                className={`col-span-12 ${p.span} ${i % 2 === 1 ? "md:mt-40" : ""}`}
-                delay={i * 60}
-              >
-                <a href="#" data-cursor="View" className="group block">
-                  <div className={`relative w-full overflow-hidden ${p.tall ? "aspect-[3/4]" : "aspect-[4/3]"}`}>
-                    <img
-                      src={p.img}
-                      alt={p.title}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-[1600ms] ease-out group-hover:scale-[1.04]"
-                    />
-                    <div className="pointer-events-none absolute inset-0 bg-ink/0 transition-colors duration-700 group-hover:bg-ink/10" />
-                  </div>
-                  <div className="mt-5 flex items-baseline justify-between gap-4">
-                    <div className="flex items-baseline gap-4">
-                      <span className="label text-bronze">{p.n}</span>
-                      <h3 className="font-display text-2xl md:text-4xl leading-tight tracking-[-0.01em]">
-                        {p.title}
-                      </h3>
+            {projects.map((p, i) => {
+              const layout = workLayout[i % workLayout.length];
+              return (
+                <Reveal
+                  key={p.slug}
+                  className={`col-span-12 ${layout.span} ${i % 2 === 1 ? "md:mt-40" : ""}`}
+                  delay={i * 60}
+                >
+                  <Link
+                    to="/projects/$slug"
+                    params={{ slug: p.slug }}
+                    data-cursor="View"
+                    className="group block"
+                  >
+                    <div className={`relative w-full overflow-hidden ${layout.tall ? "aspect-[3/4]" : "aspect-[4/3]"}`}>
+                      <img
+                        src={p.cover}
+                        alt={p.coverAlt}
+                        loading="lazy"
+                        className="h-full w-full object-cover transition-transform duration-[1600ms] ease-out group-hover:scale-[1.04]"
+                      />
+                      <div className="pointer-events-none absolute inset-0 bg-ink/0 transition-colors duration-700 group-hover:bg-ink/10" />
                     </div>
-                    <div className="hidden text-right label text-foreground/50 md:block">
-                      <div>{p.type}</div>
-                      <div className="mt-1">{p.place} · {p.year}</div>
+                    <div className="mt-5 flex items-baseline justify-between gap-4">
+                      <div className="flex items-baseline gap-4">
+                        <span className="label text-bronze">{String(i + 1).padStart(2, "0")}</span>
+                        <h3 className="font-display text-2xl md:text-4xl leading-tight tracking-[-0.01em]">
+                          {p.title}
+                        </h3>
+                      </div>
+                      <div className="hidden text-right label text-foreground/50 md:block">
+                        <div>{p.typology}</div>
+                        <div className="mt-1">{p.location} · {p.year}</div>
+                      </div>
                     </div>
-                  </div>
-                  <div className="mt-4 hairline" />
-                </a>
-              </Reveal>
-            ))}
+                    <div className="mt-4 hairline" />
+                  </Link>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>

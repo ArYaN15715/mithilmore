@@ -71,7 +71,7 @@ export const projects: Project[] = [
     title: "The Master Suite",
     typology: "Residential · Bedroom",
     location: "Vadodara, IN",
-    year: "2025",
+    year: "2026",
     role: "Design, working drawings, visualisation",
     tools: ["AutoCAD", "SketchUp"],
     intro:
@@ -101,7 +101,7 @@ export const projects: Project[] = [
     role: "Design, working drawings, visualisation",
     tools: ["AutoCAD", "SketchUp"],
     intro:
-      "A compact common bath built on two confident materials: forest-green marble and glossy oxblood tile. Matte-black fixtures and a lit mirror keep the small footprint sharp. Drawn to the last tile joint, so the site had nothing to guess.",
+      "This project reimagines the common residential toilet as an experience rather than just a utility. Strong materiality, seamless detailing, and a bold color palette create a space with a unique identity.",
     story: [],
     cover: bath01,
     coverAlt: "Bathroom in green marble and glossy oxblood tile",
@@ -120,7 +120,7 @@ export const projects: Project[] = [
     title: "The Kitchen",
     typology: "Residential · Kitchen",
     location: "Vadodara, IN",
-    year: "2025",
+    year: "2026",
     role: "Design, working drawings, visualisation",
     tools: ["AutoCAD", "SketchUp"],
     intro:

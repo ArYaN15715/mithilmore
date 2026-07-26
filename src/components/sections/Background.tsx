@@ -27,7 +27,7 @@ const languages = [
 
 export function BackgroundSection() {
   return (
-    <section id="background" className="border-b border-border px-6 py-28 md:px-10 md:py-40">
+    <section id="background" className="border-b border-border px-6 pt-28 pb-16 md:px-10 md:pt-40 md:pb-20">
       <div className="mx-auto max-w-[1600px]">
         <div className="mb-16 flex items-end justify-between md:mb-24">
           <span className="label text-foreground/50">Ch. 02 — Practice</span>
@@ -118,9 +118,9 @@ export function BackgroundSection() {
           <div className="grid grid-cols-2 md:grid-cols-4">
             {languages.map((l, i) => (
               <Reveal key={l.name} delay={i * 40}>
-                <div className="border-t border-border py-6 pr-6 md:py-8">
-                  <div className="font-display text-3xl md:text-4xl">{l.native}</div>
-                  <div className="label mt-2 text-foreground/50">{l.name}</div>
+                <div className="border-t border-border py-5 pr-6 md:py-6">
+                  <div className="font-display text-3xl leading-tight md:text-4xl">{l.native}</div>
+                  <div className="label mt-1 text-foreground/50">{l.name}</div>
                 </div>
               </Reveal>
             ))}

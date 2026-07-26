@@ -76,7 +76,23 @@ function Home() {
 
       {/* HERO */}
       <section id="top" className="relative flex min-h-[100dvh] flex-col overflow-hidden border-b border-border">
-        <div className="mx-auto w-full max-w-[1600px] shrink-0 px-6 pt-24 md:px-10 md:pt-28">
+        <div className="relative mx-auto w-full max-w-[1600px] shrink-0 px-6 pt-24 md:px-10 md:pt-28">
+          {/* 3D room volume, drawn in the site's hairlines */}
+          <div
+            aria-hidden
+            className="cube-scene pointer-events-none absolute right-8 top-10 hidden opacity-0 lg:block xl:right-16"
+            style={{ animation: "softin 1.6s var(--ease-studio) 1.7s forwards" }}
+          >
+            <div className="cube">
+              <div className="cube-face cube-face--front" />
+              <div className="cube-face cube-face--back" />
+              <div className="cube-face cube-face--right" />
+              <div className="cube-face cube-face--left" />
+              <div className="cube-face cube-face--top" />
+              <div className="cube-face cube-face--floor" />
+            </div>
+          </div>
+
           <p className="label text-foreground/55 rise" style={{ animationDelay: "1.15s" }}>
             {site.title}, Vadodara
           </p>

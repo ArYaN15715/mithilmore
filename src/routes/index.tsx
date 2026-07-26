@@ -62,7 +62,7 @@ const workLayout = [
   { span: "lg:col-span-8", tall: false },
   { span: "lg:col-span-4", tall: true },
   { span: "lg:col-span-5", tall: false },
-  { span: "lg:col-span-7", tall: true },
+  { span: "lg:col-span-7", tall: false },
 ];
 
 function Home() {

@@ -77,10 +77,10 @@ function Home() {
       {/* HERO */}
       <section id="top" className="relative flex min-h-[100dvh] flex-col overflow-hidden border-b border-border">
         <div className="relative mx-auto w-full max-w-[1600px] shrink-0 px-6 pt-24 md:px-10 md:pt-28">
-          {/* 3D room volume, drawn in the site's hairlines */}
+          {/* 3D room volume, drawn in the site's hairlines, aligned to the name */}
           <div
             aria-hidden
-            className="cube-scene pointer-events-none absolute right-8 top-10 hidden opacity-0 lg:block xl:right-16"
+            className="cube-scene pointer-events-none absolute right-14 top-36 hidden opacity-0 lg:block xl:right-24"
             style={{ animation: "softin 1.6s var(--ease-studio) 1.7s forwards" }}
           >
             <div className="cube">
@@ -90,6 +90,26 @@ function Home() {
               <div className="cube-face cube-face--left" />
               <div className="cube-face cube-face--top" />
               <div className="cube-face cube-face--floor" />
+              <div className="cube-inner">
+                <div className="cube-face cube-face--front" />
+                <div className="cube-face cube-face--back" />
+                <div className="cube-face cube-face--right" />
+                <div className="cube-face cube-face--left" />
+                <div className="cube-face cube-face--top" />
+                <div className="cube-face cube-face--floor" />
+              </div>
+              {[
+                [-1, -1, -1], [1, -1, -1], [-1, 1, -1], [1, 1, -1],
+                [-1, -1, 1], [1, -1, 1], [-1, 1, 1], [1, 1, 1],
+              ].map(([x, y, z], i) => (
+                <span
+                  key={i}
+                  className="cube-node"
+                  style={{
+                    transform: `translate3d(calc(${x} * var(--cube-size) / 2), calc(${y} * var(--cube-size) / 2), calc(${z} * var(--cube-size) / 2))`,
+                  }}
+                />
+              ))}
             </div>
           </div>
 

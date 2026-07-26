@@ -238,9 +238,10 @@
 
 /* Hero 3D room volume: hairline glass cube, slow turn, bronze plan floor */
 .cube-scene {
-  --cube-size: clamp(200px, 20vw, 300px);
-  width: var(--cube-size);
-  height: var(--cube-size);
+  --cube-full: clamp(220px, 22vw, 340px);
+  --cube-size: var(--cube-full);
+  width: var(--cube-full);
+  height: var(--cube-full);
   perspective: 1400px;
 }
 .cube {
@@ -274,4 +275,37 @@
   background-image:
     repeating-linear-gradient(0deg, color-mix(in oklab, var(--bronze) 30%, transparent) 0 1px, transparent 1px calc(var(--cube-size) / 4)),
     repeating-linear-gradient(90deg, color-mix(in oklab, var(--bronze) 30%, transparent) 0 1px, transparent 1px calc(var(--cube-size) / 4));
+}
+
+/* Inner volume: smaller bronze-tinted mass counter-rotating inside the room */
+.cube-inner {
+  position: absolute;
+  inset: 27.5%;
+  transform-style: preserve-3d;
+  animation: cube-turn-reverse 22s linear infinite;
+  --cube-size: calc(var(--cube-full) * 0.45);
+}
+@keyframes cube-turn-reverse {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(-360deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cube-inner { animation: none; transform: rotateY(24deg); }
+}
+.cube-inner .cube-face {
+  border-color: color-mix(in oklab, var(--bronze) 50%, transparent);
+  background: color-mix(in oklab, var(--bronze) 8%, transparent);
+}
+.cube-inner .cube-face--floor { background-image: none; }
+
+/* Vertex nodes: small bronze points at the room's corners */
+.cube-node {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 9999px;
+  background: var(--bronze);
 }

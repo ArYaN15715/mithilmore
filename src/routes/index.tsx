@@ -1,5 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+
+import { Reveal } from "@/components/motion/Reveal";
+import { Cursor } from "@/components/motion/Cursor";
+import { Loader } from "@/components/motion/Loader";
+import { Marquee } from "@/components/motion/Marquee";
 
 import heroImg from "../assets/hero.jpg";
 import project1 from "../assets/project-1.jpg";
@@ -46,130 +51,6 @@ export const Route = createFileRoute("/")({
   }),
   component: Home,
 });
-
-function useReveal<T extends HTMLElement>() {
-  const ref = useRef<T | null>(null);
-  const [shown, setShown] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) {
-          setShown(true);
-          io.disconnect();
-        }
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -10% 0px" },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-  return { ref, shown };
-}
-
-function Reveal({
-  children,
-  as: As = "div",
-  className = "",
-  delay = 0,
-}: {
-  children: React.ReactNode;
-  as?: keyof React.JSX.IntrinsicElements;
-  className?: string;
-  delay?: number;
-}) {
-  const { ref, shown } = useReveal<HTMLDivElement>();
-  const Comp = As as React.ElementType;
-  return (
-    <Comp
-      ref={ref}
-      className={className}
-      style={{
-        opacity: shown ? 1 : 0,
-        transform: shown ? "translateY(0)" : "translateY(28px)",
-        transition: `opacity 1.1s var(--ease-studio) ${delay}ms, transform 1.2s var(--ease-studio) ${delay}ms`,
-      }}
-    >
-      {children}
-    </Comp>
-  );
-}
-
-function Cursor() {
-  const dot = useRef<HTMLDivElement>(null);
-  const ring = useRef<HTMLDivElement>(null);
-  const [label, setLabel] = useState("");
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (window.matchMedia("(pointer: coarse)").matches) return;
-    let rx = 0, ry = 0, x = 0, y = 0;
-    const onMove = (e: MouseEvent) => {
-      x = e.clientX;
-      y = e.clientY;
-      if (dot.current) dot.current.style.transform = `translate3d(${x - 3}px, ${y - 3}px, 0)`;
-      const target = e.target as HTMLElement | null;
-      const l = target?.closest("[data-cursor]") as HTMLElement | null;
-      setLabel(l?.dataset.cursor ?? "");
-    };
-    const tick = () => {
-      rx += (x - rx) * 0.16;
-      ry += (y - ry) * 0.16;
-      if (ring.current) ring.current.style.transform = `translate3d(${rx - 18}px, ${ry - 18}px, 0)`;
-      raf = requestAnimationFrame(tick);
-    };
-    let raf = requestAnimationFrame(tick);
-    window.addEventListener("mousemove", onMove);
-    return () => {
-      window.removeEventListener("mousemove", onMove);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
-  return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 z-[70] hidden md:block">
-      <div
-        ref={ring}
-        className="absolute left-0 top-0 grid size-9 place-items-center rounded-full border border-foreground/40 backdrop-blur-[1px] transition-[width,height,background] duration-300"
-        style={{
-          width: label ? 84 : 36,
-          height: label ? 84 : 36,
-          background: label ? "var(--ink)" : "transparent",
-          color: label ? "var(--background)" : "var(--foreground)",
-          borderColor: label ? "transparent" : "color-mix(in oklab, var(--foreground) 35%, transparent)",
-        }}
-      >
-        <span className="label" style={{ opacity: label ? 1 : 0 }}>{label}</span>
-      </div>
-      <div ref={dot} className="absolute left-0 top-0 size-1.5 rounded-full bg-foreground" />
-    </div>
-  );
-}
-
-function Loader() {
-  const [gone, setGone] = useState(false);
-  useEffect(() => {
-    const t = setTimeout(() => setGone(true), 1800);
-    return () => clearTimeout(t);
-  }, []);
-  return (
-    <div
-      className="fixed inset-0 z-[80] grid place-items-center bg-background transition-opacity duration-700"
-      style={{ opacity: gone ? 0 : 1, pointerEvents: gone ? "none" : "auto" }}
-    >
-      <div className="w-[min(80vw,520px)] px-6">
-        <div className="flex items-baseline justify-between label text-foreground/60">
-          <span>Mithil More</span>
-          <span>Studio</span>
-        </div>
-        <div className="mt-4 h-px w-full origin-left scale-x-0 bg-foreground/70 animate-[draw_1.4s_var(--ease-studio)_forwards]" />
-        <div className="mt-6 flex items-baseline justify-between">
-          <span className="font-display text-3xl italic text-foreground/80">Enter</span>
-          <span className="label text-foreground/40">MMXXV</span>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 const projects = [
   {
@@ -320,19 +201,8 @@ function Home() {
       </section>
 
       {/* MARQUEE */}
-      <section className="border-y border-border py-6 overflow-hidden marquee-mask">
-        <div className="marquee-track flex w-max whitespace-nowrap font-display text-4xl md:text-6xl italic tracking-tight text-foreground/70">
-          {Array.from({ length: 2 }).map((_, i) => (
-            <div key={i} className="flex items-center">
-              {["Residential", "Hospitality", "Retail", "Adaptive Re-use", "Furniture", "Art Direction"].map((w) => (
-                <span key={w + i} className="mx-10 inline-flex items-center gap-10">
-                  <span>{w}</span>
-                  <span className="text-bronze/60">✦</span>
-                </span>
-              ))}
-            </div>
-          ))}
-        </div>
+      <section className="border-y border-border py-6">
+        <Marquee items={["Residential", "Commercial", "Space Planning", "Design Development", "Site Execution", "3D Visualisation"]} />
       </section>
 
       {/* STUDIO / INTRODUCTION */}

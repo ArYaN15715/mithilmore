@@ -307,8 +307,11 @@ function Home() {
               <div className="mb-3 opacity-50">Location</div>
               <div>Vadodara, Gujarat</div>
               <div>India</div>
-              <div className="mt-6 opacity-50">Hours</div>
-              <div>By appointment</div>
+              <div className="mt-6 opacity-50">A note</div>
+              <p className="mt-2 max-w-[26ch] font-display text-lg italic normal-case leading-snug tracking-normal opacity-90">
+                Every space begins with a conversation.
+                Looking forward to ours.
+              </p>
             </div>
 
             <div className="col-span-12 md:col-span-2 label opacity-70">

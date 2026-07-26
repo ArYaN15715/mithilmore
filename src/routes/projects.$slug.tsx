@@ -36,29 +36,25 @@ function Photo({ photo, index }: { photo: ProjectPhoto; index: number }) {
       </Reveal>
     );
   }
+  // Renders keep their native aspect ratio: no crop slots. Half/detail only
+  // control how much of the grid width the image takes.
   if (photo.layout === "half") {
     return (
       <Reveal className="col-span-12 md:col-span-6" delay={(index % 2) * 80}>
-        <div className="aspect-[4/5] overflow-hidden">
-          <img src={photo.src} alt={photo.alt} loading="lazy" className="h-full w-full object-cover" />
-        </div>
+        <img src={photo.src} alt={photo.alt} loading="lazy" className="w-full" />
       </Reveal>
     );
   }
   if (photo.layout === "detail") {
     return (
-      <Reveal className="col-span-12 md:col-span-5 md:col-start-7">
-        <div className="aspect-[4/5] overflow-hidden">
-          <img src={photo.src} alt={photo.alt} loading="lazy" className="h-full w-full object-cover" />
-        </div>
+      <Reveal className="col-span-12 md:col-span-8 md:col-start-4">
+        <img src={photo.src} alt={photo.alt} loading="lazy" className="w-full" />
       </Reveal>
     );
   }
   return (
     <Reveal className="col-span-12">
-      <div className="aspect-[16/10] overflow-hidden">
-        <img src={photo.src} alt={photo.alt} loading="lazy" className="h-full w-full object-cover" />
-      </div>
+      <img src={photo.src} alt={photo.alt} loading="lazy" className="w-full" />
     </Reveal>
   );
 }

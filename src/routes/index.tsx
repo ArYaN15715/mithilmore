@@ -24,17 +24,17 @@ import portrait from "../assets/portrait.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Mithil More — Interior Architecture & Spatial Design" },
+      { title: "Mithil More — Interior Designer, Vadodara" },
       {
         name: "description",
         content:
-          "The studio of Mithil More. Quiet, considered interiors rooted in material honesty, architectural restraint and the choreography of light.",
+          "Portfolio of Mithil A. More — interior designer in Vadodara, India. Space planning, design development and site execution for residential & commercial projects.",
       },
-      { property: "og:title", content: "Mithil More — Interior Architecture" },
+      { property: "og:title", content: "Mithil More — Interior Designer, Vadodara" },
       {
         property: "og:description",
         content:
-          "Interiors composed as architecture. A studio practice devoted to material, light and stillness.",
+          "Space planning, design development and site execution for residential & commercial interiors.",
       },
       { property: "og:url", content: "/" },
       { property: "og:type", content: "website" },
@@ -46,8 +46,18 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Person",
-          name: "Mithil More",
+          name: "Mithil A. More",
           jobTitle: "Interior Designer",
+          email: "mailto:mithilmore97@gmail.com",
+          telephone: "+91-87338-30350",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Vadodara",
+            addressRegion: "Gujarat",
+            addressCountry: "IN",
+          },
+          alumniOf: "The Maharaja Sayajirao University of Baroda",
+          knowsLanguage: ["mr", "gu", "hi", "en"],
           url: "/",
         }),
       },

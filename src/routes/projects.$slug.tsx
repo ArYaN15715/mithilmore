@@ -1,5 +1,5 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { getProject, nextProject, type ProjectPhoto } from "@/data/projects";
 import { site } from "@/data/site";
@@ -25,42 +25,139 @@ export const Route = createFileRoute("/projects/$slug")({
   component: ProjectPage,
 });
 
-function Photo({ photo, index }: { photo: ProjectPhoto; index: number }) {
+function Photo({
+  photo,
+  index,
+  onOpen,
+}: {
+  photo: ProjectPhoto;
+  index: number;
+  onOpen: (p: ProjectPhoto) => void;
+}) {
   if (photo.layout === "drawing") {
     return (
       <Reveal className="col-span-12 md:col-span-6" delay={(index % 2) * 80}>
-        <div className="flex aspect-[4/3] items-center justify-center border border-border bg-bone p-6 md:p-10">
-          <img src={photo.src} alt={photo.alt} loading="lazy" className="max-h-full max-w-full object-contain" />
-        </div>
+        <button
+          type="button"
+          onClick={() => onOpen(photo)}
+          data-cursor="Zoom"
+          aria-label={`Zoom: ${photo.alt}`}
+          className="block w-full cursor-zoom-in"
+        >
+          <div className="flex aspect-[4/3] items-center justify-center border border-border bg-bone p-6 transition-colors duration-500 hover:bg-background md:p-10">
+            <img src={photo.src} alt={photo.alt} loading="lazy" className="max-h-full max-w-full object-contain" />
+          </div>
+        </button>
         <p className="label mt-3 text-foreground/45">{photo.alt}</p>
       </Reveal>
     );
   }
   // Renders keep their native aspect ratio: no crop slots. Half/detail only
   // control how much of the grid width the image takes.
-  if (photo.layout === "half") {
-    return (
-      <Reveal className="col-span-12 md:col-span-6" delay={(index % 2) * 80}>
-        <img src={photo.src} alt={photo.alt} loading="lazy" className="w-full" />
-      </Reveal>
-    );
-  }
-  if (photo.layout === "detail") {
-    return (
-      <Reveal className="col-span-12 md:col-span-8 md:col-start-4">
-        <img src={photo.src} alt={photo.alt} loading="lazy" className="w-full" />
-      </Reveal>
-    );
-  }
+  const span =
+    photo.layout === "half"
+      ? "col-span-12 md:col-span-6"
+      : photo.layout === "detail"
+        ? "col-span-12 md:col-span-8 md:col-start-4"
+        : "col-span-12";
   return (
-    <Reveal className="col-span-12">
-      <img src={photo.src} alt={photo.alt} loading="lazy" className="w-full" />
+    <Reveal className={span} delay={photo.layout === "half" ? (index % 2) * 80 : 0}>
+      <button
+        type="button"
+        onClick={() => onOpen(photo)}
+        data-cursor="Zoom"
+        aria-label={`Zoom: ${photo.alt}`}
+        className="block w-full cursor-zoom-in overflow-hidden"
+      >
+        <img
+          src={photo.src}
+          alt={photo.alt}
+          loading="lazy"
+          className="w-full transition-transform duration-700 ease-out hover:scale-[1.02]"
+        />
+      </button>
     </Reveal>
+  );
+}
+
+function Lightbox({ photo, onClose }: { photo: ProjectPhoto; onClose: () => void }) {
+  const [zoomed, setZoomed] = useState(false);
+  const panRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    window.__lenis?.stop();
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.__lenis?.start();
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
+  // Start a zoomed view centered instead of at the top-left corner
+  useEffect(() => {
+    const el = panRef.current;
+    if (zoomed && el) {
+      el.scrollLeft = (el.scrollWidth - el.clientWidth) / 2;
+      el.scrollTop = (el.scrollHeight - el.clientHeight) / 2;
+    }
+  }, [zoomed]);
+
+  return (
+    <div
+      className="fixed inset-0 z-[90] bg-ink/95 backdrop-blur-sm"
+      role="dialog"
+      aria-modal="true"
+      aria-label={photo.alt}
+    >
+      <button
+        type="button"
+        onClick={onClose}
+        autoFocus
+        className="label absolute right-6 top-6 z-10 text-[color:oklch(0.97_0.008_85)] opacity-80 transition-opacity hover:opacity-100 md:right-10 md:top-8"
+      >
+        Close ✕
+      </button>
+      <div
+        ref={panRef}
+        onClick={onClose}
+        className={
+          zoomed
+            ? "h-full w-full overflow-auto"
+            : "flex h-full w-full items-center justify-center p-6 md:p-12"
+        }
+      >
+        <img
+          src={photo.src}
+          alt={photo.alt}
+          onClick={(e) => {
+            e.stopPropagation();
+            setZoomed(!zoomed);
+          }}
+          className={
+            zoomed
+              ? "block max-w-none cursor-zoom-out"
+              : "max-h-[85vh] max-w-[92vw] cursor-zoom-in object-contain"
+          }
+        />
+      </div>
+      <div className="pointer-events-none absolute inset-x-6 bottom-6 flex items-baseline justify-between gap-6 md:inset-x-10">
+        <span className="label text-[color:oklch(0.97_0.008_85)]/70">{photo.alt}</span>
+        <span className="label hidden shrink-0 text-[color:oklch(0.97_0.008_85)]/50 md:inline">
+          {zoomed ? "Click image to fit · scroll to pan" : "Click image to zoom"}
+        </span>
+      </div>
+    </div>
   );
 }
 
 function ProjectPage() {
   const { project, next } = Route.useLoaderData();
+  const [lightbox, setLightbox] = useState<ProjectPhoto | null>(null);
 
   // New project page always starts at the top. The reset must go through
   // Lenis when it is active: a plain window.scrollTo gets overridden on the
@@ -128,7 +225,7 @@ function ProjectPage() {
       <section className="px-6 py-16 md:px-10 md:py-24">
         <div className="mx-auto grid max-w-[1600px] grid-cols-12 gap-x-8 gap-y-12 md:gap-y-20">
           {project.photos.map((ph, i) => (
-            <Photo key={i} photo={ph} index={i} />
+            <Photo key={i} photo={ph} index={i} onOpen={setLightbox} />
           ))}
         </div>
 
@@ -165,6 +262,8 @@ function ProjectPage() {
           </div>
         </div>
       </section>
+
+      {lightbox && <Lightbox photo={lightbox} onClose={() => setLightbox(null)} />}
     </div>
   );
 }

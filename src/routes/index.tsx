@@ -200,13 +200,13 @@ function Home() {
         <div className="mx-auto grid max-w-[1600px] grid-cols-12 gap-y-16 gap-x-8">
           <div className="col-span-12 flex items-start justify-between md:col-span-3">
             <span className="label text-foreground/50">Ch. 01 — Studio</span>
-            <span className="label text-foreground/40 md:hidden">2025</span>
+            <span className="label text-foreground/40 md:hidden">2026</span>
           </div>
           <Reveal className="col-span-12 md:col-span-9">
             <h2 className="font-display text-[clamp(2rem,4.5vw,4.4rem)] leading-[1.02] tracking-[-0.015em] text-balance">
-              I do not decorate rooms. I compose the quiet that lives inside them —
-              the pause between the door and the window, the weight of stone under
-              a bare foot, the hour when a wall <em className="italic text-bronze">turns golden</em>.
+              A space has to work before it can move you. I plan it on paper,
+              draw it to the millimetre, then stand on site until the built room
+              keeps the drawing's <em className="italic text-bronze">promise</em>.
             </h2>
           </Reveal>
 
@@ -222,18 +222,23 @@ function Home() {
                   className="h-full w-full object-cover grayscale-[15%]"
                 />
               </div>
-              <p className="label mt-4 text-foreground/50">Mithil More — Principal</p>
+              <p className="label mt-4 text-foreground/50">{site.name} — {site.title}</p>
             </Reveal>
 
             <Reveal className="col-span-12 space-y-6 text-lg leading-relaxed text-foreground/75 md:col-span-4" delay={160}>
               <p>
-                Trained between Mumbai and Milano, Mithil More founded the studio in 2018 as a devotion to the discipline of restraint — a slow practice against the noise of the discipline.
+                Mithil came to design the long way around — a commerce degree first,
+                then the stronger pull of drawing. He retrained in interior design at
+                The Maharaja Sayajirao University of Baroda, graduating in 2025.
               </p>
               <p>
-                Every project begins the same way: a long walk through the site at three different hours of the day, a single notebook, no camera. The building tells the studio how to answer.
+                Since then he has worked across residential and commercial projects at
+                APM Studio and now WE2 Interior Design Studio — planning spaces,
+                developing designs and coordinating them on site, from working
+                drawings to handover.
               </p>
-              <a href="#contact" data-cursor="Read" className="inline-flex items-center gap-3 label pt-4">
-                <span>The Manifesto</span>
+              <a href="#contact" data-cursor="Write" className="inline-flex items-center gap-3 label pt-4">
+                <span>Start a project</span>
                 <span className="inline-block h-px w-10 bg-current" />
               </a>
             </Reveal>

@@ -5,6 +5,8 @@ import { Reveal } from "@/components/motion/Reveal";
 import { Cursor } from "@/components/motion/Cursor";
 import { Loader } from "@/components/motion/Loader";
 import { Marquee } from "@/components/motion/Marquee";
+import { SiteHeader } from "@/components/site/SiteHeader";
+import { site } from "@/data/site";
 
 import heroImg from "../assets/hero.jpg";
 import project1 from "../assets/project-1.jpg";
@@ -138,19 +140,7 @@ function Home() {
       <Cursor />
 
       {/* Nav */}
-      <header className="fixed inset-x-0 top-0 z-40 mix-blend-difference">
-        <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 py-6 md:px-10 md:py-8 text-[color:oklch(0.96_0.01_85)]">
-          <a href="#top" className="label" data-cursor="Top">Mithil More</a>
-          <nav className="hidden gap-10 md:flex label">
-            <a href="#work" className="hover:opacity-60 transition-opacity">Work</a>
-            <a href="#studio" className="hover:opacity-60 transition-opacity">Studio</a>
-            <a href="#materials" className="hover:opacity-60 transition-opacity">Materials</a>
-            <a href="#process" className="hover:opacity-60 transition-opacity">Process</a>
-            <a href="#journal" className="hover:opacity-60 transition-opacity">Journal</a>
-          </nav>
-          <a href="#contact" className="label" data-cursor="Write">Contact →</a>
-        </div>
-      </header>
+      <SiteHeader />
 
       {/* HERO */}
       <section id="top" className="relative h-[100svh] w-full overflow-hidden">
@@ -167,14 +157,14 @@ function Home() {
 
         <div className="relative z-10 flex h-full flex-col justify-between px-6 pb-10 pt-28 md:px-10 md:pb-14 md:pt-32 text-[color:oklch(0.97_0.008_85)]">
           <div className="flex items-start justify-between label opacity-80">
-            <span>Studio&nbsp;Est.&nbsp;MMXVIII</span>
-            <span className="hidden md:inline">N 19.07° — E 72.87°</span>
-            <span>Interiors / Architecture</span>
+            <span>{site.title}</span>
+            <span className="hidden md:inline">{site.coordinates}</span>
+            <span>{site.locationShort}</span>
           </div>
 
           <div className="max-w-[1400px]">
             <p className="label mb-6 opacity-80 rise" style={{ animationDelay: "1.9s" }}>
-              — A studio practice by Mithil More
+              — {site.name}, {site.title}
             </p>
             <h1
               className="font-display text-[clamp(3.2rem,12vw,12rem)] leading-[0.86] tracking-[-0.02em] text-balance rise"
@@ -185,7 +175,7 @@ function Home() {
             </h1>
             <div className="mt-10 flex flex-wrap items-end justify-between gap-6 rise" style={{ animationDelay: "2.35s" }}>
               <p className="max-w-md font-light leading-relaxed opacity-85">
-                Interiors composed as architecture. A quiet devotion to material, proportion and the way a space holds a life.
+                Interiors composed with intention. A quiet devotion to material, proportion and the way a space holds a life.
               </p>
               <a
                 href="#work"
@@ -193,7 +183,7 @@ function Home() {
                 className="group inline-flex items-center gap-4 label"
               >
                 <span className="inline-block h-px w-16 bg-current transition-all duration-500 group-hover:w-24" />
-                <span>Selected&nbsp;Work — 2018 / 2025</span>
+                <span>Selected&nbsp;Work ↓</span>
               </a>
             </div>
           </div>

@@ -157,11 +157,11 @@ function Home() {
             <span className="label text-foreground/40 md:hidden">2026</span>
           </div>
           <Reveal className="col-span-12 md:col-span-9">
-            <h2 className="font-display text-[clamp(2rem,4.5vw,4.4rem)] leading-[1.02] tracking-[-0.015em] text-balance">
-              A space has to work before it can move you. I plan it on paper,
-              draw it to the millimetre, then stand on site until the built room
-              keeps the drawing's <em className="italic text-bronze">promise</em>.
-            </h2>
+            <blockquote className="font-display text-[clamp(2rem,4.5vw,4.4rem)] leading-[1.02] tracking-[-0.015em] text-balance">
+              “Your home should tell the story of who you are, and be a
+              collection of what you <em className="italic text-bronze">love</em>.”
+            </blockquote>
+            <p className="label mt-6 text-right text-foreground/50">— Nate Berkus</p>
           </Reveal>
 
           <div className="col-span-12 mt-12 grid grid-cols-12 gap-8 md:mt-24">

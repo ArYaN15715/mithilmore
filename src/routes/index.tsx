@@ -6,6 +6,7 @@ import { Cursor } from "@/components/motion/Cursor";
 import { Loader } from "@/components/motion/Loader";
 import { Marquee } from "@/components/motion/Marquee";
 import { SiteHeader } from "@/components/site/SiteHeader";
+import { BackgroundSection } from "@/components/sections/Background";
 import { site } from "@/data/site";
 
 import heroImg from "../assets/hero.jpg";
@@ -246,11 +247,14 @@ function Home() {
         </div>
       </section>
 
+      {/* BACKGROUND — Experience / Education / Software */}
+      <BackgroundSection />
+
       {/* WORK — Featured Projects */}
       <section id="work" className="border-b border-border px-6 py-28 md:px-10 md:py-40">
         <div className="mx-auto max-w-[1600px]">
           <div className="mb-16 flex items-end justify-between md:mb-24">
-            <span className="label text-foreground/50">Ch. 02 — Selected Works</span>
+            <span className="label text-foreground/50">Ch. 03 — Selected Works</span>
             <span className="label text-foreground/40">Index / 04</span>
           </div>
 
@@ -295,7 +299,7 @@ function Home() {
       <section className="relative border-b border-border bg-bone px-6 py-32 md:px-10 md:py-56">
         <div className="mx-auto max-w-[1400px]">
           <div className="mb-16 flex items-center justify-between label text-foreground/50">
-            <span>Ch. 03 — Philosophy</span>
+            <span>Ch. 04 — Philosophy</span>
             <span>On restraint</span>
           </div>
           <Reveal>
@@ -318,7 +322,7 @@ function Home() {
         <div className="mx-auto max-w-[1600px]">
           <div className="mb-16 flex items-end justify-between md:mb-24">
             <div>
-              <span className="label text-foreground/50">Ch. 04 — Material Library</span>
+              <span className="label text-foreground/50">Ch. 05 — Material Library</span>
               <h2 className="mt-6 font-display text-[clamp(2.4rem,6vw,5.6rem)] leading-[0.98] tracking-[-0.02em]">
                 A vocabulary of <em className="italic text-bronze">four</em>.
               </h2>
@@ -356,7 +360,7 @@ function Home() {
       <section id="process" className="border-b border-border bg-ink px-6 py-28 text-[color:oklch(0.96_0.01_85)] md:px-10 md:py-48">
         <div className="mx-auto max-w-[1600px]">
           <div className="mb-16 flex items-end justify-between md:mb-24">
-            <span className="label opacity-60">Ch. 05 — Method</span>
+            <span className="label opacity-60">Ch. 06 — Method</span>
             <span className="label opacity-40">Six movements</span>
           </div>
 
@@ -392,7 +396,7 @@ function Home() {
       {/* HORIZONTAL GALLERY */}
       <section className="border-b border-border py-28 md:py-40">
         <div className="mx-auto mb-12 flex max-w-[1600px] items-end justify-between px-6 md:mb-16 md:px-10">
-          <span className="label text-foreground/50">Ch. 06 — Details</span>
+          <span className="label text-foreground/50">Ch. 07 — Details</span>
           <span className="label text-foreground/40 italic font-display text-base">drag to traverse →</span>
         </div>
         <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-8 md:gap-10 md:px-10" data-cursor="Drag">
@@ -459,7 +463,7 @@ function Home() {
       <section id="contact" className="relative overflow-hidden bg-ink px-6 py-28 text-[color:oklch(0.97_0.008_85)] md:px-10 md:py-48">
         <div className="mx-auto max-w-[1600px]">
           <div className="flex items-end justify-between label opacity-60 mb-16">
-            <span>Ch. 09 — Correspondence</span>
+            <span>Ch. 08 — Correspondence</span>
             <span>MMXXV</span>
           </div>
 

@@ -66,9 +66,16 @@ function Photo({ photo, index }: { photo: ProjectPhoto; index: number }) {
 function ProjectPage() {
   const { project, next } = Route.useLoaderData();
 
-  // New project page always starts at the top (slug-to-slug navigation keeps scroll otherwise).
+  // New project page always starts at the top. The reset must go through
+  // Lenis when it is active: a plain window.scrollTo gets overridden on the
+  // next frame by Lenis's own remembered scroll position.
   useEffect(() => {
-    window.scrollTo(0, 0);
+    const lenis = window.__lenis;
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true, force: true });
+    } else {
+      window.scrollTo(0, 0);
+    }
   }, [project.slug]);
 
   return (

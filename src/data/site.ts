@@ -34,7 +34,6 @@ export const site = {
     "V-Ray",
     "Lumion",
     "Enscape",
-    "Adobe Photoshop",
     "Adobe Illustrator",
     "CorelDRAW",
   ],

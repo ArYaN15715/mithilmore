@@ -13,7 +13,6 @@ const toolMarks: Record<string, { mark: string; note: string; fg: string; bg: st
   "V-Ray": { mark: "Vr", note: "Rendering", fg: "#FFFFFF", bg: "#0A7DBE" },
   Lumion: { mark: "Lu", note: "Rendering", fg: "#FFFFFF", bg: "#0E7490" },
   Enscape: { mark: "En", note: "Rendering", fg: "#FFFFFF", bg: "#F26E21" },
-  "Adobe Photoshop": { mark: "Ps", note: "Imaging", fg: "#31A8FF", bg: "#001E36" },
   "Adobe Illustrator": { mark: "Ai", note: "Graphics", fg: "#FF9A00", bg: "#330000" },
   CorelDRAW: { mark: "Cd", note: "Graphics", fg: "#FFFFFF", bg: "#009344" },
 };
